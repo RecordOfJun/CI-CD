@@ -51,9 +51,10 @@ jobs:
           echo "${{secrets.SSH_PRIVATE_KEY}}" >> $HOME/key.pem
           chmod 400 $HOME/key.pem
           scp -i $HOME/key.pem -o StrictHostKeyChecking=no *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/cicd.jar
-  SSH:
-    runs-on: ubuntu-latest
 
+  SSH:
+    needs: deploy
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: ssh to ec2
@@ -61,7 +62,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.USER }}
+          username: ${{ secrets.SSH_USER }}
           script: |
             sudo fuser -k 8080/tcp
             sudo nohup java -jar ~/cicd/*.jar &
