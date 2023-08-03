@@ -76,7 +76,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           script: |
             rm -rf ~/build
-            mv ~temp/build ~/build
+            mv ~/temp/build ~/build
             
 
 
