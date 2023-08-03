@@ -61,7 +61,7 @@ jobs:
           source: "build/*"
           target: "~/temp"
 
-  run:
+  ssh:
     needs: deploy
     runs-on: ubuntu-latest
 
