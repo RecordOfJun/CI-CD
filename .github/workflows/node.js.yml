@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
-          run: rm -rf build
+          script: rm -rf ~/build
 
       - name: Copy files via SSH
         uses: appleboy/scp-action@master
