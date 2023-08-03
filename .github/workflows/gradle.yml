@@ -63,7 +63,7 @@ jobs:
           source: "*.jar"
           target: "~"
 
-  SSH:
+  ssh:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
