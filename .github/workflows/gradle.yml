@@ -52,9 +52,9 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: SCP transfer
         run: |
-          echo ${{secrets.SSH_PRIVATE_KEY}} >> $HOME/key.pem
+          echo "${{secrets.SSH_PRIVATE_KEY}}" >> $HOME/key.pem
           chmod 400 $HOME/key.pem
-          scp -i $HOME/key.pem *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/cicd
+          scp -i "$HOME/key.pem" *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/cicd
       - name: Execute remote commands
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
