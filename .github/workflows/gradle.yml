@@ -49,12 +49,19 @@ jobs:
       - name: SCP transfer
         run: |
           echo "${{secrets.SSH_PRIVATE_KEY}}" >> $HOME/key.pem
-          chmod 600 $HOME/key.pem
+          chmod 400 $HOME/key.pem
           scp -i $HOME/key.pem -o StrictHostKeyChecking=no *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/cicd.jar
-      - name: kill 8080
-        run: |
-          ssh -i $HOME/key.pem -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
-      - name: run 8080
-        run: |
-          ssh -i $HOME/key.pem -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
-        
+  SSH:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: ssh to ec2
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USER }}
+          script: |
+            sudo fuser -k 8080/tcp
+            sudo nohup java -jar ~/cicd/*.jar &
