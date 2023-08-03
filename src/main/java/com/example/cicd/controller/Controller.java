@@ -8,6 +8,6 @@ public class Controller {
 
     @GetMapping("/")
     public String testCICD() {
-        return "배포 성공";
+        return "아 좀 돼라";
     }
 }
