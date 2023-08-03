@@ -67,8 +67,8 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend/build/libs/*.jar"
-          target: "~"
+          source: "*.jar"
+          target: "~/cicd.jar"
 
   SSH:
     needs: deploy
