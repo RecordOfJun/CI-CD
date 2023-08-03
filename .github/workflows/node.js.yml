@@ -59,11 +59,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "build/*"
-          target: "~/temp/build"
+          target: "~/temp"
 
   run:
     needs: deploy
-    runs-on: ubutu-latest
+    runs-on: ubuntu-latest
 
     steps:
 
