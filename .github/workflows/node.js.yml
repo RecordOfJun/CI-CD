@@ -50,6 +50,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: cicdsample
+          path: build
 
       - name: Copy files via SSH
         uses: appleboy/scp-action@master
