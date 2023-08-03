@@ -66,3 +66,4 @@ jobs:
           script: |
             sudo fuser -k 8080/tcp
             sudo nohup java -jar ~/cicd.jar &
+            exit
