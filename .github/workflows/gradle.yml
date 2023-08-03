@@ -83,5 +83,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           script: |
             sudo fuser -k 8080/tcp
-            sudo nohup java -jar ~/cicd.jar > nohup.out 2> nohup.err < /dev/null &
+            sudo nohup java -jar ~/CICD-0.0.1-SNAPSHOT.jar > nohup.out 2> nohup.err < /dev/null &
             exit
