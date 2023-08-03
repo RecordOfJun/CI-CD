@@ -59,9 +59,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "build/*"
-          target: "~/temp"
+          target: "var/www/html/temp"
 
-  run:
+  ssh:
     needs: deploy
     runs-on: ubuntu-latest
 
@@ -75,8 +75,8 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           script: |
-            rm -rf ~/build
-            mv ~/temp/build ~/build
+            rm -rf var/www/html/build
+            mv var/www/html/temp/build var/www/html/build
             
 
 
