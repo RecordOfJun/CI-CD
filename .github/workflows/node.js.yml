@@ -52,15 +52,6 @@ jobs:
           name: cicdsample
           path: build
 
-      - uses: actions/checkout@v3
-      - name: ssh to ec2
-        uses: appleboy/ssh-action@master
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SSH_USER }}
-          script: rm -rf ~/build
-
       - name: Copy files via SSH
         uses: appleboy/scp-action@master
         with:
@@ -68,7 +59,25 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "build/*"
-          target: "~"
+          target: "~/temp/build"
+
+  run:
+    needs: deploy
+    runs-on: ubutu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+      - name: ssh to ec2
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          script: |
+            rm -rf ~/build
+            mv ~temp/build ~/build
+            
 
 
     
