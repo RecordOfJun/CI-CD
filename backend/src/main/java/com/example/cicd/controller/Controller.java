@@ -8,6 +8,6 @@ public class Controller {
 
     @GetMapping("/")
     public String testCICD() {
-        return "test";
+        return "test2";
     }
 }
