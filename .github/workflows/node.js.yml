@@ -77,6 +77,7 @@ jobs:
           script: |
             rm -rf /var/www/html/build
             mv /var/www/html/temp/build /var/www/html/build
+            sudo systemctl reload nginx
             
 
 
